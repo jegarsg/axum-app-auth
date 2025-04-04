@@ -1,9 +1,9 @@
-use axum::{Router, routing::post};
+use axum::{Router, routing::{get, post}};
 use sqlx::PgPool;
-use crate::api::user::register;
 
 pub fn create_router(pool: PgPool) -> Router {
     Router::new()
-        .route("/api/user/register", post(register))
-        .with_state(pool) // Ensure correct state management
+        .route("/health", get(crate::api::health::health_check))
+        .route("/api/user/register", post(crate::api::user::register))
+        .with_state(pool)
 }

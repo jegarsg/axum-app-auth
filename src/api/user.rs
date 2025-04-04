@@ -1,15 +1,25 @@
-use axum::{extract::State, Json};
-use crate::service::user_service;
-use crate::domain::user::{User, RegisterUser};
+use axum::{
+    extract::State,
+    response::IntoResponse, // Import IntoResponse
+    Json,
+};
+use serde_json::json;
 use sqlx::PgPool;
 
+use crate::{
+    domain::user::RegisterUser,
+    error::AppError,
+    service::user_service,
+};
 
 pub async fn register(
     State(pool): State<PgPool>,
-    Json(payload): Json<RegisterUser>
-) -> Result<Json<User>, String> {
-    match user_service::register_user(&pool, payload).await {
-        Ok(user) => Ok(Json(user)),
-        Err(err) => Err(err),
-    }
+    Json(payload): Json<RegisterUser>,
+) -> Result<impl IntoResponse, AppError> {
+    let user = user_service::register_user(&pool, payload).await?;
+
+    Ok(Json(json!({
+        "success": true,
+        "data": user
+    })))
 }

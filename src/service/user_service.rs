@@ -1,14 +1,33 @@
-use crate::repository::user_repository;
-use crate::domain::user::{User, RegisterUser};
+// src/service/user_service.rs
+use crate::{
+    domain::user::{User, RegisterUser},  // Explicitly import User
+    error::AppError,
+    repository::user_repository,
+};
+use anyhow::Context;
 use sqlx::PgPool;
 
+pub async fn register_user(
+    pool: &PgPool,
+    user_data: RegisterUser,
+) -> Result<User, AppError> {
+    validate_user_input(&user_data)?;
+    
+    let user = user_repository::create_user(pool, &user_data)
+        .await
+        .context("Failed to create user")?;
 
-pub async fn register_user(pool: &PgPool, new_user: RegisterUser) -> Result<User, String> {
-    match user_repository::create_user(pool, &new_user).await {
-        Ok(user) => Ok(user),
-        Err(err) => {
-            eprintln!("Error creating user: {:?}", err);
-            Err("Failed to create user".to_string())
-        }
+    Ok(user)
+}
+
+fn validate_user_input(user: &RegisterUser) -> Result<(), AppError> {
+    if !user.email.contains('@') {
+        return Err(AppError::ValidationError("Invalid email format".into()));
     }
+    if user.password.len() < 8 {
+        return Err(AppError::ValidationError(
+            "Password must be at least 8 characters".into(),
+        ));
+    }
+    Ok(())
 }

@@ -1,7 +1,7 @@
 // src/domain/user.rs
 use serde::{Deserialize, Serialize};
-use uuid::Uuid;
-use chrono::NaiveDateTime;
+use sqlx::types::Uuid;
+use chrono::{DateTime, Utc};
 
 #[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
 pub struct User {
@@ -12,10 +12,10 @@ pub struct User {
     pub full_name: String,
     pub password: String,
     pub is_active: bool,
-    pub created_by: Option<Uuid>,
-    pub created_at: NaiveDateTime,
-    pub modified_by: Option<Uuid>,
-    pub modified_at: Option<NaiveDateTime>,
+    pub created_by: String,
+    pub created_at: DateTime<Utc>,
+    pub modified_by: String,
+    pub modified_at: DateTime<Utc>,
 }
 
 #[derive(Debug, Deserialize)]
