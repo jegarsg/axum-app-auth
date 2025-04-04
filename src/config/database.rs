@@ -7,5 +7,5 @@ pub async fn establish_connection() -> PgPool {
         .max_connections(5)
         .connect(&database_url)
         .await
-        .expect("Failed to connect to database")
+        .expect("Failed to connect to the database")
 }

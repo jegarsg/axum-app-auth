@@ -2,7 +2,7 @@ use sqlx::PgPool;
 use crate::domain::user::{User, RegisterUser};
 use uuid::Uuid;
 use argon2::{Argon2, PasswordHasher, password_hash::SaltString};
-use rand_core::OsRng;
+use rand::rngs::OsRng;
 
 
 pub async fn create_user(pool: &PgPool, new_user: &RegisterUser) -> Result<User, sqlx::Error> {
