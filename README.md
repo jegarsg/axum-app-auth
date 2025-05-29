@@ -75,8 +75,7 @@ git clone https://github.com/your-username/axum-app-auth.git
 cd axum-app
 
 # Set up .env file
-cp mac.env .env  # or win.env depending on your OS
-
+cp .env 
 # Run database migrations
 sqlx migrate run
 
