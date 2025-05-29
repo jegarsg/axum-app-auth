@@ -17,13 +17,11 @@
 ## 📁 Folder Structure
 ```bash
 
-└───axum-app
+└───axum-app-auth
     │   .env
     │   .gitignore
     │   Cargo.lock
     │   Cargo.toml
-    │   mac.env
-    │   win.env
     │
     ├───migrations
     ├───src
