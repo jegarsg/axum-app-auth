@@ -32,7 +32,6 @@
     │   ├───middleware
     │   │
     │   ├───repository
-    │   │       user_repository.rs
     │   │
     │   └───service
 ```
