@@ -18,44 +18,23 @@
 ```bash
 
 └───axum-app-auth
-    │   .env
-    │   .gitignore
-    │   Cargo.lock
-    │   Cargo.toml
-    │
     ├───migrations
-    ├───src
-    │   │   app.rs
-    │   │   error.rs
-    │   │   main.rs
-    │   │   router.rs
     │   │
+    ├───src
     │   ├───api
-    │   │       health.rs
-    │   │       mod.rs
-    │   │       user.rs
     │   │
     │   ├───config
-    │   │       database.rs
-    │   │       mod.rs
     │   │
     │   ├───domain
-    │   │       mod.rs
-    │   │       user.rs
     │   │
     │   ├───infrastructure
-    │   │       mod.rs
     │   │
     │   ├───middleware
-    │   │       mod.rs
     │   │
     │   ├───repository
-    │   │       mod.rs
     │   │       user_repository.rs
     │   │
     │   └───service
-    │           mod.rs
-    │           user_service.rs
 ```
 
 
